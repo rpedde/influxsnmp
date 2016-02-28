@@ -121,7 +121,7 @@ func (c *SnmpConfig) LoadPorts() {
 	if len(c.PortFile) == 0 {
 		return
 	}
-	data, err := ioutil.ReadFile(filepath.Join(appdir, c.PortFile))
+	data, err := ioutil.ReadFile(c.PortFile)
 	if err != nil {
 		log.Fatal(err)
 	}
