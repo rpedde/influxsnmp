@@ -127,15 +127,16 @@ func (c *SnmpConfig) LoadPorts() {
 	}
 	for _, line := range strings.Split(string(data), "\n") {
 		// strip comments
-		comment := strings.Index(line, "#")
+		comment := strings.Index(line, ";")
 		if comment >= 0 {
 			line = line[:comment]
 		}
-		f := strings.Fields(line)
-		if len(f) < 2 {
-			continue
+		split := strings.Index(line, "=")
+		if split >= 0 {
+			key := strings.TrimSpace(line[:split])
+			value := strings.TrimSpace(line[split+1:])
+			c.labels[key] = value
 		}
-		c.labels[f[0]] = f[1]
 	}
 }
 
